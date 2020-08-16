@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.sudoajay.myreward.activity.ScrollingActivity">
+    tools:context="com.sudoajay.myreward.activity.MainActivity">
     <item
         android:id="@+id/action_new_reward"
         android:orderInCategory="100"
