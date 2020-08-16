@@ -13,7 +13,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
+
 import com.sudoajay.myreward.R
 import com.sudoajay.myreward.databinding.ActivityScrollingBinding
 import kotlinx.android.synthetic.main.activity_scrolling.*
@@ -41,24 +41,23 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-
         //      Setup Swipe RecyclerView
-//
-//        swipe_refresh.setColorSchemeResources(
-//            R.color.swipeSchemeColor
-//        )
-//
-//        //         Setup BottomAppBar Navigation Setup
-//        swipe_refresh.setOnRefreshListener {
-//            swipe_refresh.isRefreshing = false
-//        }
+        binding.include.swipeRefresh.setColorSchemeResources(
+            R.color.swipeSchemeColor
+        )
+
+
+        //         Setup BottomAppBar Navigation Setup
+        binding.include.swipeRefresh.setOnRefreshListener {
+            binding.include.swipeRefresh.isRefreshing = false
+        }
 
 //        Setup Recycler View
         setUpRecyclerView()
     }
 
     private fun setUpRecyclerView() {
-        val recyclerView = recycler_view
+        val recyclerView = binding.include.recyclerView
         val rewardAdapter = RewardAdapter(this)
         recyclerView.layoutManager = GridLayoutManager(this, 2)
         recyclerView.adapter = rewardAdapter
@@ -72,10 +71,11 @@ class MainActivity : AppCompatActivity() {
             rewardAdapter.items = it
             rewardAdapter.notifyDataSetChanged()
 //
-//            if (swipe_refresh.isRefreshing)
-//                swipe_refresh.isRefreshing = false
+            if (binding.include.swipeRefresh.isRefreshing)
+                binding.include.swipeRefresh.isRefreshing = false
 
         })
+
 
 
     }
@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity() {
 
         return when (item.itemId) {
             R.id.action_new_reward -> true
-            R.id.recent_reward_sort_by -> true
+            R.id.date_sort_by -> true
             R.id.amount_dec_sort_by -> true
             R.id.amount_asc_sort_by -> true
             R.id.action_about_app -> {

@@ -82,7 +82,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <include
-            android:id="@+id/secondary"
+            android:id="@+id/include"
             layout="@layout/content_scrolling"
             bind:viewmodel="@{viewmodel}"/>
 

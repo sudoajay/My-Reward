@@ -12,7 +12,7 @@ class RewardRepository(private val context: Context, private val rewardDao: Rewa
         return when(filter){
             context.getString(R.string.amount_dec_sort_by)-> rewardDao.getRewardByAmountDescOrder()
             context.getString(R.string.amount_asc_sort_by)-> rewardDao.getRewardByAmountAscOrder()
-            else -> rewardDao.getRewardByRecentOrder()
+            else -> rewardDao.getRewardByRecentDate()
         }
     }
 

@@ -8,6 +8,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "RewardTable")
 class Reward(
     @PrimaryKey(autoGenerate = true ) var id: Long?,
-    @ColumnInfo(name = "amount") val amount: Int
+    @ColumnInfo(name = "amount") val amount: Int,
+    @ColumnInfo(name = "date") val Date: Long
 
-)
+
+    )

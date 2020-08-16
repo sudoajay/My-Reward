@@ -14,8 +14,8 @@
         app:showAsAction="never">
 
         <menu>
-            <item android:id="@+id/recent_reward_sort_by"
-                android:title="@string/recent_reward_sort_by" />
+            <item android:id="@+id/date_sort_by"
+                android:title="@string/date_sort_by" />
             <item android:id="@+id/amount_dec_sort_by"
                 android:title="@string/amount_dec_sort_by" />
             <item android:id="@+id/amount_asc_sort_by"
