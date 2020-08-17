@@ -2,6 +2,7 @@ package com.sudoajay.myreward.activity
 
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -24,6 +25,8 @@ class RewardAdapter(private var mainActivity: MainActivity) :
         var moneyTextView = layoutRewardAdapterBinding.moneyTextView
         var youWonTextView = layoutRewardAdapterBinding.youWonTextView
         var rewardCardView = layoutRewardAdapterBinding.rewardCardView
+        var newScratchImageView = layoutRewardAdapterBinding.newScratchImageView
+        var insideConstraintLayout = layoutRewardAdapterBinding.insideConstraintLayout
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -44,6 +47,16 @@ class RewardAdapter(private var mainActivity: MainActivity) :
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val reward = items[position]
         Log.e("RewardAdapater", reward.amount.toString() + " --- " + position)
+
+
+        if(reward.isScratch){
+            holder.newScratchImageView.visibility= View.VISIBLE
+            holder.insideConstraintLayout.visibility = View.INVISIBLE
+
+        }else{
+            holder.newScratchImageView.visibility= View.INVISIBLE
+            holder.insideConstraintLayout.visibility = View.VISIBLE
+        }
 
         holder.rewardCardView.setOnClickListener {
             mainActivity.callRewardInfo(reward)

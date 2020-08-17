@@ -19,7 +19,7 @@ import com.sudoajay.myreward.R
 import com.sudoajay.myreward.activity.database.Reward
 import com.sudoajay.myreward.databinding.ActivityScrollingBinding
 import kotlinx.android.synthetic.main.activity_scrolling.*
-import kotlinx.android.synthetic.main.content_scrolling.*
+import kotlinx.android.synthetic.main.content_scrolling.view.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -95,12 +95,15 @@ class MainActivity : AppCompatActivity() {
         // as you specify reward_1 parent activity in AndroidManifest.xml.
 
         return when (item.itemId) {
-            R.id.action_new_reward -> true
-            R.id.date_sort_by ->{
+            R.id.action_new_reward -> {
+                viewModel.addNewScratch()
+                true
+            }
+            R.id.date_sort_by -> {
                 viewModel.filterChanges(getString(R.string.date_sort_by))
                 true
             }
-            R.id.amount_dec_sort_by ->{
+            R.id.amount_dec_sort_by -> {
                 viewModel.filterChanges(getString(R.string.amount_dec_sort_by))
                 true
             }

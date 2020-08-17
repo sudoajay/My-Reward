@@ -45,7 +45,6 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
     private fun addData() {
         CoroutineScope(Dispatchers.IO).launch {
 
-
             if (rewardRepository.getCount() == 0) {
                 rewardRepository.insert(
                     Reward(
@@ -53,7 +52,7 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
                         150,
                         1576517014000,
                         getRandomString(),
-                        getEarnedFrom()
+                        getEarnedFrom(), false
                     )
                 )
                 rewardRepository.insert(
@@ -62,7 +61,7 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
                         220,
                         1576734051000,
                         getRandomString(),
-                        getEarnedFrom()
+                        getEarnedFrom(), false
                     )
                 )
                 rewardRepository.insert(
@@ -71,7 +70,7 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
                         225,
                         1526341914000,
                         getRandomString(),
-                        getEarnedFrom()
+                        getEarnedFrom(), false
                     )
                 )
                 rewardRepository.insert(
@@ -80,7 +79,7 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
                         0,
                         1554431984000,
                         getRandomString(),
-                        getEarnedFrom()
+                        getEarnedFrom(), false
                     )
                 )
                 rewardRepository.insert(
@@ -89,7 +88,7 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
                         500,
                         1575480551000,
                         getRandomString(),
-                        getEarnedFrom()
+                        getEarnedFrom(), false
                     )
                 )
                 rewardRepository.insert(
@@ -98,20 +97,37 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
                         550,
                         1554431984000,
                         getRandomString(),
-                        getEarnedFrom()
+                        getEarnedFrom(), false
                     )
                 )
             }
         }
     }
 
-    private fun deleteFromDb() {
+    fun addNewScratch() {
         CoroutineScope(Dispatchers.IO).launch {
-           rewardRepository.deleteAmountNoneFromDb()
+            rewardRepository.insert(
+                Reward(
+                    null,
+                    0,
+                    0,
+                    "",
+                    "",
+                    true
+                )
+            )
+
+            filterChanges.postValue(_application.getString(R.string.date_sort_by))
         }
     }
 
-    fun onRefresh(){
+    private fun deleteFromDb() {
+        CoroutineScope(Dispatchers.IO).launch {
+            rewardRepository.deleteAmountNoneFromDb()
+        }
+    }
+
+    fun onRefresh() {
         deleteFromDb()
         filterChanges()
     }

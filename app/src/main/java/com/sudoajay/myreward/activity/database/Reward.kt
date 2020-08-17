@@ -11,8 +11,7 @@ class Reward(
     @ColumnInfo(name = "amount") val amount: Int,
     @ColumnInfo(name = "date") val date: Long,
     @ColumnInfo(name = "code") val code: String,
-    @ColumnInfo(name = "earned") val earned: String
+    @ColumnInfo(name = "earned") val earned: String,
+    @ColumnInfo(name = "Scratch") val isScratch: Boolean
 
-
-
-)
+    )
