@@ -19,12 +19,16 @@ interface RewardDao {
      fun getRewardByAmountAscOrder():LiveData<List<Reward>>
 
 
+
     @Query("Select Count(*) FROM RewardTable ")
     suspend fun getCount(): Int
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(reward: Reward)
 
-    @Query("DELETE FROM RewardTable")
-    suspend fun deleteAll()
+    @Query("Select id FROM RewardTable where amount = 0 ")
+    suspend fun getIdOfAmountNone(): List<Long>
+
+    @Query("DELETE FROM RewardTable where id = :id ")
+    suspend fun deleteRowFromId(id:Long)
 }

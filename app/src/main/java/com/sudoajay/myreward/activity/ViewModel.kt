@@ -36,6 +36,7 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
         }
 
         addData()
+        deleteFromDb()
         filterChanges()
         getHideProgress()
         hideProgress!!.value =   false
@@ -43,15 +44,76 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
 
     private fun addData() {
         CoroutineScope(Dispatchers.IO).launch {
+
+
             if (rewardRepository.getCount() == 0) {
-                rewardRepository.insert(Reward(null, 150, 1576517014000,getRandomString(),getEarnedFrom()))
-                rewardRepository.insert(Reward(null, 220,1576734051000,getRandomString(),getEarnedFrom()))
-                rewardRepository.insert(Reward(null, 225,1526341914000,getRandomString(),getEarnedFrom()))
-                rewardRepository.insert(Reward(null, 0,1554431984000,getRandomString(),getEarnedFrom()))
-                rewardRepository.insert(Reward(null, 500,1575480551000,getRandomString(),getEarnedFrom()))
-                rewardRepository.insert(Reward(null, 550,1554431984000,getRandomString(),getEarnedFrom()))
+                rewardRepository.insert(
+                    Reward(
+                        null,
+                        150,
+                        1576517014000,
+                        getRandomString(),
+                        getEarnedFrom()
+                    )
+                )
+                rewardRepository.insert(
+                    Reward(
+                        null,
+                        220,
+                        1576734051000,
+                        getRandomString(),
+                        getEarnedFrom()
+                    )
+                )
+                rewardRepository.insert(
+                    Reward(
+                        null,
+                        225,
+                        1526341914000,
+                        getRandomString(),
+                        getEarnedFrom()
+                    )
+                )
+                rewardRepository.insert(
+                    Reward(
+                        null,
+                        0,
+                        1554431984000,
+                        getRandomString(),
+                        getEarnedFrom()
+                    )
+                )
+                rewardRepository.insert(
+                    Reward(
+                        null,
+                        500,
+                        1575480551000,
+                        getRandomString(),
+                        getEarnedFrom()
+                    )
+                )
+                rewardRepository.insert(
+                    Reward(
+                        null,
+                        550,
+                        1554431984000,
+                        getRandomString(),
+                        getEarnedFrom()
+                    )
+                )
             }
         }
+    }
+
+    private fun deleteFromDb() {
+        CoroutineScope(Dispatchers.IO).launch {
+           rewardRepository.deleteAmountNoneFromDb()
+        }
+    }
+
+    fun onRefresh(){
+        deleteFromDb()
+        filterChanges()
     }
 
     fun filterChanges(filter: String = _application.getString(R.string.date_sort_by)) {

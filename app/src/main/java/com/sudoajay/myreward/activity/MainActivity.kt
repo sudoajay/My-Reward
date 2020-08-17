@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity() {
 
         //         Setup BottomAppBar Navigation Setup
         binding.include.swipeRefresh.setOnRefreshListener {
+            viewModel.onRefresh()
             binding.include.swipeRefresh.isRefreshing = false
         }
 
@@ -95,9 +96,18 @@ class MainActivity : AppCompatActivity() {
 
         return when (item.itemId) {
             R.id.action_new_reward -> true
-            R.id.date_sort_by -> true
-            R.id.amount_dec_sort_by -> true
-            R.id.amount_asc_sort_by -> true
+            R.id.date_sort_by ->{
+                viewModel.filterChanges(getString(R.string.date_sort_by))
+                true
+            }
+            R.id.amount_dec_sort_by ->{
+                viewModel.filterChanges(getString(R.string.amount_dec_sort_by))
+                true
+            }
+            R.id.amount_asc_sort_by -> {
+                viewModel.filterChanges(getString(R.string.amount_asc_sort_by))
+                true
+            }
             R.id.action_about_app -> {
                 openGithubApp()
                 true

@@ -39,9 +39,7 @@ class RewardInfoDialog(var reward: Reward) : DialogFragment() {
     private fun mainFunction() { // Reference Object
 
         // setup dialog box
-//        dialog!!.window!!.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-        val window = dialog!!.window
-        window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+       dialog!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         getDate()
 

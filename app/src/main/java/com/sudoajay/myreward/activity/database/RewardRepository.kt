@@ -9,10 +9,16 @@ class RewardRepository(private val context: Context, private val rewardDao: Rewa
 
 
     fun listUpdate(filter: String): LiveData<List<Reward>> {
-        return when(filter){
-            context.getString(R.string.amount_dec_sort_by)-> rewardDao.getRewardByAmountDescOrder()
-            context.getString(R.string.amount_asc_sort_by)-> rewardDao.getRewardByAmountAscOrder()
+        return when (filter) {
+            context.getString(R.string.amount_dec_sort_by) -> rewardDao.getRewardByAmountDescOrder()
+            context.getString(R.string.amount_asc_sort_by) -> rewardDao.getRewardByAmountAscOrder()
             else -> rewardDao.getRewardByRecentDate()
+        }
+    }
+
+    suspend fun deleteAmountNoneFromDb() {
+        for (x in rewardDao.getIdOfAmountNone()) {
+            rewardDao.deleteRowFromId(x)
         }
     }
 
