@@ -8,6 +8,7 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.sudoajay.myreward.R
@@ -31,19 +32,32 @@ class RewardInfoDialog(var reward: Reward) : DialogFragment() {
             false
         )
         binding.dialog = this
-
         mainFunction()
-
         return binding.root
     }
 
     private fun mainFunction() { // Reference Object
 
-
         // setup dialog box
-        dialog!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+//        dialog!!.window!!.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        val window = dialog!!.window
+        window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         getDate()
+
+        val colors =
+            arrayOf(
+                R.drawable.reward_1,
+                R.drawable.reward_2,
+                R.drawable.reward_3,
+                R.drawable.reward_4
+            )
+        binding.rewardImageView.setImageDrawable(
+            ContextCompat.getDrawable(
+                requireContext(),
+                if (reward.amount != 0) colors.random() else R.drawable.reward_empty
+            )
+        )
     }
 
 
@@ -68,9 +82,7 @@ class RewardInfoDialog(var reward: Reward) : DialogFragment() {
                 } catch (e: ClassCastException) { // This will happen when at the top view, it cannot be cast to a View
                     break
                 }
-                // Modify the layout
-                current.layoutParams.width = width - 10 * width / 100
-                current.layoutParams.height = heigth - 10 * heigth / 100
+
             }
         } while (current!!.parent != null)
         // Request a layout to be re-done
@@ -88,14 +100,17 @@ class RewardInfoDialog(var reward: Reward) : DialogFragment() {
         startActivity(Intent.createChooser(i, "Share via"))
     }
 
-    fun getMoreReward(){
+    fun getMoreReward() {
 
     }
 
     private fun getDate() {
         val sdf = SimpleDateFormat(" MMM d", Locale.getDefault())
-        date= getString(R.string.paid_on_text, sdf.format(reward.date))
+        date = getString(R.string.paid_on_text, sdf.format(reward.date))
     }
 
+    fun doNothing() {
+
+    }
 
 }

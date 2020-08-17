@@ -10,6 +10,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -116,6 +117,7 @@ class MainActivity : AppCompatActivity() {
     fun callRewardInfo(reward: Reward) {
         val ft = supportFragmentManager.beginTransaction()
         val systemInfoDialog = RewardInfoDialog(reward = reward)
+        systemInfoDialog.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar_Fullscreen)
         systemInfoDialog.show(ft, "dialog")
     }
 

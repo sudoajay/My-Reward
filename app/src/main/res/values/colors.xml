@@ -8,5 +8,6 @@
 
     <color name="swipeSchemeColor">#376db6</color>
     <color name="buttonColor">#136ad5</color>
+    <color name="dialogBgColor">#CD000000</color>
 
 </resources>

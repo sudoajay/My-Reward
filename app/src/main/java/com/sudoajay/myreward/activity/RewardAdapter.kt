@@ -22,6 +22,7 @@ class RewardAdapter(private var mainActivity: MainActivity) :
 
         var rewardImageView = layoutRewardAdapterBinding.rewardImageView
         var moneyTextView = layoutRewardAdapterBinding.moneyTextView
+        var youWonTextView = layoutRewardAdapterBinding.youWonTextView
         var rewardCardView = layoutRewardAdapterBinding.rewardCardView
     }
 
@@ -55,19 +56,18 @@ class RewardAdapter(private var mainActivity: MainActivity) :
                 R.drawable.reward_4
             )
         holder.rewardImageView.setImageDrawable(
-            ContextCompat.getDrawable(
-                mainActivity,
-                colors.random()
+            ContextCompat.getDrawable(mainActivity,   if (reward.amount != 0)colors.random() else R.drawable.reward_empty
             )
         )
+        holder.youWonTextView.text = if (reward.amount != 0) mainActivity.getString(R.string.you_won_text) else mainActivity.getString(
+            R.string.better_luck_next_time_text)
+
         holder.moneyTextView.text =
             if (reward.amount != 0) mainActivity.getString(
                 R.string.money_text,
                 mainActivity.getString(R.string.rupee_text),
                 reward.amount.toString()
-            ) else mainActivity.getString(
-                R.string.better_luck_next_time_text
-            )
+            ) else ""
 
 
     }

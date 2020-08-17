@@ -11,20 +11,22 @@
         android:id="@+id/reward_CardView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         cardView:cardCornerRadius="8dp"
-        cardView:cardElevation="8dp"
-        android:layout_margin="8dp">
+        cardView:cardElevation="8dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+
+            android:paddingTop="24dp"
+            android:paddingBottom="24dp">
 
             <ImageView
                 android:id="@+id/reward_ImageView"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
                 android:layout_marginStart="40dp"
-                android:layout_marginTop="24dp"
                 android:layout_marginEnd="40dp"
                 android:scaleType="centerCrop"
                 cardView:layout_constraintEnd_toEndOf="parent"
@@ -34,11 +36,10 @@
                 tools:background="@drawable/reward_1" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/youWon_TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@string/you_won_text"
                 android:textColor="@color/toolbarTextColor"
                 android:textSize="16sp"
                 cardView:layout_constraintEnd_toEndOf="@+id/reward_ImageView"
@@ -51,14 +52,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="24dp"
-                android:text="₹ 45"
+
                 android:textColor="@android:color/black"
                 android:textSize="18sp"
-                cardView:layout_constraintBottom_toBottomOf="parent"
-                cardView:layout_constraintEnd_toEndOf="@+id/textView"
-                cardView:layout_constraintStart_toStartOf="@+id/textView"
-                cardView:layout_constraintTop_toBottomOf="@+id/textView" />
+                cardView:layout_constraintEnd_toEndOf="@+id/youWon_TextView"
+                cardView:layout_constraintStart_toStartOf="@+id/youWon_TextView"
+                cardView:layout_constraintTop_toBottomOf="@+id/youWon_TextView" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
