@@ -15,7 +15,19 @@
     <string name="you_won_text">You Won</string>
 
 <!--    Text-->
-    <string name="better_luck_next_time_text">Better luck next time</string>
+    <string name="better_luck_next_time_text">Better luck\n next time!</string>
+    <string name="empty_text"> </string>
 
+
+<!--    Reward dialog -->
+    <string name="share_to_friend">I won %1$s with Google Pay! It\'s a simple and secure payments app by Google.</string>
+    <string name="hooray_text">Hooray !</string>
+    <string name="money_text">%1$s %2$s</string>
+    <string name="next_time_text">Next Time</string>
+    <string name="tell_your_friends_text">Tell your friends</string>
+    <string name="get_more_reward_text">Get more reward</string>
+    <string name="paid_on_text">Paid on %1$s</string>
+    <string name="generate_code_text">"Google Ref #: %1$s"</string>
+    <string name="earned_for_paying_text">"Earned for paying %1$s"</string>
 
 </resources>

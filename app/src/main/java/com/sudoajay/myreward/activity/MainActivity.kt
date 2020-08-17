@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 
 import com.sudoajay.myreward.R
+import com.sudoajay.myreward.activity.database.Reward
 import com.sudoajay.myreward.databinding.ActivityScrollingBinding
 import kotlinx.android.synthetic.main.activity_scrolling.*
 import kotlinx.android.synthetic.main.content_scrolling.*
@@ -110,6 +111,12 @@ class MainActivity : AppCompatActivity() {
         val i = Intent(Intent.ACTION_VIEW)
         i.data = Uri.parse(link)
         startActivity(i)
+    }
+
+    fun callRewardInfo(reward: Reward) {
+        val ft = supportFragmentManager.beginTransaction()
+        val systemInfoDialog = RewardInfoDialog(reward = reward)
+        systemInfoDialog.show(ft, "dialog")
     }
 
 }

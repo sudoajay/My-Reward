@@ -7,5 +7,6 @@
     <color name="toolbarTextColor">#353434</color>
 
     <color name="swipeSchemeColor">#376db6</color>
+    <color name="buttonColor">#136ad5</color>
 
 </resources>

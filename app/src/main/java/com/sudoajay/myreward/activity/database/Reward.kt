@@ -9,7 +9,10 @@ import androidx.room.PrimaryKey
 class Reward(
     @PrimaryKey(autoGenerate = true ) var id: Long?,
     @ColumnInfo(name = "amount") val amount: Int,
-    @ColumnInfo(name = "date") val Date: Long
+    @ColumnInfo(name = "date") val date: Long,
+    @ColumnInfo(name = "code") val code: String,
+    @ColumnInfo(name = "earned") val earned: String
 
 
-    )
+
+)

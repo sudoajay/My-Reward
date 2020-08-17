@@ -13,7 +13,7 @@ import com.sudoajay.myreward.databinding.LayoutRewardAdapterBinding
 
 class RewardAdapter(private var mainActivity: MainActivity) :
     RecyclerView.Adapter<RewardAdapter.MyViewHolder>() {
-    var items: List<Reward> = listOf(Reward(0,150),Reward(1, 200))
+    var items: List<Reward> = listOf()
 
     class MyViewHolder(
         layoutRewardAdapterBinding: LayoutRewardAdapterBinding
@@ -22,7 +22,7 @@ class RewardAdapter(private var mainActivity: MainActivity) :
 
         var rewardImageView = layoutRewardAdapterBinding.rewardImageView
         var moneyTextView = layoutRewardAdapterBinding.moneyTextView
-
+        var rewardCardView = layoutRewardAdapterBinding.rewardCardView
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -43,8 +43,17 @@ class RewardAdapter(private var mainActivity: MainActivity) :
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val reward = items[position]
         Log.e("RewardAdapater", reward.amount.toString() + " --- " + position)
+
+        holder.rewardCardView.setOnClickListener {
+            mainActivity.callRewardInfo(reward)
+        }
         val colors =
-            arrayOf(R.drawable.reward_1, R.drawable.reward_2, R.drawable.reward_3, R.drawable.reward_4)
+            arrayOf(
+                R.drawable.reward_1,
+                R.drawable.reward_2,
+                R.drawable.reward_3,
+                R.drawable.reward_4
+            )
         holder.rewardImageView.setImageDrawable(
             ContextCompat.getDrawable(
                 mainActivity,
@@ -52,7 +61,11 @@ class RewardAdapter(private var mainActivity: MainActivity) :
             )
         )
         holder.moneyTextView.text =
-            if (reward.amount != 0) mainActivity.getString(R.string.rupee_text) + " " + reward.amount.toString() else mainActivity.getString(
+            if (reward.amount != 0) mainActivity.getString(
+                R.string.money_text,
+                mainActivity.getString(R.string.rupee_text),
+                reward.amount.toString()
+            ) else mainActivity.getString(
                 R.string.better_luck_next_time_text
             )
 

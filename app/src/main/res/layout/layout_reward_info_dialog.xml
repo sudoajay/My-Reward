@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:cardView="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="dialog"
+            type="com.sudoajay.myreward.activity.RewardInfoDialog" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/black">
+
+        <ImageView
+            android:id="@+id/close_ImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:onClick="@{() -> dialog.dismiss()}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_close" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/close_ImageView">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/carView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                cardView:cardCornerRadius="8dp"
+                cardView:cardElevation="8dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/reward_ImageView"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_marginStart="50dp"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginEnd="50dp"
+                        android:scaleType="centerCrop"
+                        cardView:layout_constraintEnd_toEndOf="parent"
+                        cardView:layout_constraintHorizontal_bias="0.5"
+                        cardView:layout_constraintStart_toStartOf="parent"
+                        cardView:layout_constraintTop_toTopOf="parent"
+                        tools:background="@drawable/reward_1" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@{dialog.reward.amount != 0 ?@string/hooray_text:@string/better_luck_next_time_text}"
+                        android:textColor="@color/toolbarTextColor"
+                        android:textSize="21sp"
+                        cardView:layout_constraintEnd_toEndOf="@+id/reward_ImageView"
+                        cardView:layout_constraintHorizontal_bias="0.473"
+                        cardView:layout_constraintStart_toStartOf="@+id/reward_ImageView"
+                        cardView:layout_constraintTop_toBottomOf="@+id/reward_ImageView" />
+
+                    <TextView
+                        android:id="@+id/money_TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="40dp"
+                        android:text="@{dialog.reward.amount != 0 ?@string/money_text(@string/rupee_text, dialog.reward.amount):@string/empty_text}"
+                        android:textColor="@android:color/black"
+                        android:textSize="24sp"
+                        cardView:layout_constraintBottom_toBottomOf="parent"
+                        cardView:layout_constraintEnd_toEndOf="@+id/textView"
+                        cardView:layout_constraintStart_toStartOf="@+id/textView"
+                        cardView:layout_constraintTop_toBottomOf="@+id/textView" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/congrats_TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@{dialog.reward.amount != 0 ? @string/hooray_text :@string/empty_text }"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@{dialog.reward.amount != 0 ?dialog.date:@string/empty_text }"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/congrats_TextView"
+            app:layout_constraintStart_toStartOf="@+id/congrats_TextView"
+            app:layout_constraintTop_toBottomOf="@+id/congrats_TextView" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{dialog.reward.amount != 0 ?@string/generate_code_text(dialog.reward.code):@string/empty_text }"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/textView4"
+            app:layout_constraintStart_toStartOf="@+id/textView4"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@{dialog.reward.amount != 0 ?@string/earned_for_paying_text(dialog.reward.earned):@string/empty_text }"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/textView5"
+            app:layout_constraintStart_toStartOf="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/tell_your_friend"
+            android:fontFamily="@font/lato"
+            android:onClick="@{() -> dialog.reward.amount != 0? dialog.shareReward() : dialog.getMoreReward()}"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:text="@{dialog.reward.amount != 0?@string/tell_your_friends_text:@string/get_more_reward_text}"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
