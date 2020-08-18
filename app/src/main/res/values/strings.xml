@@ -21,7 +21,11 @@
 
 <!--    Reward dialog -->
     <string name="share_to_friend">I won %1$s with Google Pay! It\'s a simple and secure payments app by Google.</string>
-    <string name="hooray_text">Hooray !</string>
+    <string name="hooray_text">Hooray!</string>
+    <string name="woohoo_text">Woohoo!</string>
+    <string name="congratulations_text">Congratulations!</string>
+    <string name="fantastic_text">Fantastic!</string>
+    <string name="awesome_text">Awesome!</string>
     <string name="money_text">%1$s %2$s</string>
     <string name="next_time_text">Next Time</string>
     <string name="tell_your_friends_text">Tell your friends</string>

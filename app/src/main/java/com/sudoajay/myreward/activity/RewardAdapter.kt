@@ -25,8 +25,8 @@ class RewardAdapter(private var mainActivity: MainActivity) :
         var moneyTextView = layoutRewardAdapterBinding.moneyTextView
         var youWonTextView = layoutRewardAdapterBinding.youWonTextView
         var rewardCardView = layoutRewardAdapterBinding.rewardCardView
-        var newScratchImageView = layoutRewardAdapterBinding.newScratchImageView
-        var insideConstraintLayout = layoutRewardAdapterBinding.insideConstraintLayout
+//        var newScratchImageView = layoutRewardAdapterBinding.newScratchImageView
+//        var insideConstraintLayout = layoutRewardAdapterBinding.insideConstraintLayout
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -49,14 +49,14 @@ class RewardAdapter(private var mainActivity: MainActivity) :
         Log.e("RewardAdapater", reward.amount.toString() + " --- " + position)
 
 
-        if(reward.isScratch){
-            holder.newScratchImageView.visibility= View.VISIBLE
-            holder.insideConstraintLayout.visibility = View.INVISIBLE
-
-        }else{
-            holder.newScratchImageView.visibility= View.INVISIBLE
-            holder.insideConstraintLayout.visibility = View.VISIBLE
-        }
+//        if(reward.isScratch){
+//            holder.newScratchImageView.visibility= View.VISIBLE
+//            holder.insideConstraintLayout.visibility = View.INVISIBLE
+//
+//        }else{
+//            holder.newScratchImageView.visibility= View.INVISIBLE
+//            holder.insideConstraintLayout.visibility = View.VISIBLE
+//        }
 
         holder.rewardCardView.setOnClickListener {
             mainActivity.callRewardInfo(reward)

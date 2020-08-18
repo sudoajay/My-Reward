@@ -52,7 +52,7 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
                         150,
                         1576517014000,
                         getRandomString(),
-                        getEarnedFrom(), false
+                        getEarnedFrom(), false, getGreeting()
                     )
                 )
                 rewardRepository.insert(
@@ -61,7 +61,7 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
                         220,
                         1576734051000,
                         getRandomString(),
-                        getEarnedFrom(), false
+                        getEarnedFrom(), false,getGreeting()
                     )
                 )
                 rewardRepository.insert(
@@ -70,7 +70,7 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
                         225,
                         1526341914000,
                         getRandomString(),
-                        getEarnedFrom(), false
+                        getEarnedFrom(), false, getGreeting()
                     )
                 )
                 rewardRepository.insert(
@@ -79,7 +79,7 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
                         0,
                         1554431984000,
                         getRandomString(),
-                        getEarnedFrom(), false
+                        getEarnedFrom(), false, getGreeting()
                     )
                 )
                 rewardRepository.insert(
@@ -88,7 +88,7 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
                         500,
                         1575480551000,
                         getRandomString(),
-                        getEarnedFrom(), false
+                        getEarnedFrom(), false,getGreeting()
                     )
                 )
                 rewardRepository.insert(
@@ -97,7 +97,7 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
                         550,
                         1554431984000,
                         getRandomString(),
-                        getEarnedFrom(), false
+                        getEarnedFrom(), false,getGreeting()
                     )
                 )
             }
@@ -113,7 +113,8 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
                     0,
                     "",
                     "",
-                    true
+                    true,
+                    getGreeting()
                 )
             )
 
@@ -155,10 +156,22 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
             sb.append(ALLOWED_CHARACTERS[random.nextInt(ALLOWED_CHARACTERS.length)])
         return sb.toString()
     }
-    private fun getEarnedFrom():String{
-        val array = listOf("Amazon", "Google","Flipkart", "Mom","Dad","Bro")
+
+    private fun getEarnedFrom(): String {
+        val array = listOf("Amazon", "Google", "Flipkart", "Mom", "Dad", "Bro")
         return array.random()
     }
+
+    private fun getGreeting(): String {
+        return listOf(
+            _application.getString(R.string.hooray_text),
+            _application.getString(R.string.woohoo_text),
+            _application.getString(R.string.fantastic_text),
+            _application.getString(R.string.congratulations_text),
+            _application.getString(R.string.awesome_text)
+        ).random()
+    }
+
     companion object {
         private const val ALLOWED_CHARACTERS = "0123456789qwertyuiopasdfghjklzxcvbnm"
     }

@@ -14,12 +14,10 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-
 import com.sudoajay.myreward.R
 import com.sudoajay.myreward.activity.database.Reward
 import com.sudoajay.myreward.databinding.ActivityScrollingBinding
 import kotlinx.android.synthetic.main.activity_scrolling.*
-import kotlinx.android.synthetic.main.content_scrolling.view.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -62,7 +60,7 @@ class MainActivity : AppCompatActivity() {
     private fun setUpRecyclerView() {
         val recyclerView = binding.include.recyclerView
         val rewardAdapter = RewardAdapter(this)
-        recyclerView.layoutManager = GridLayoutManager(this, 2)
+        recyclerView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
         recyclerView.adapter = rewardAdapter
         recyclerView.adapter = rewardAdapter
 

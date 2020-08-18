@@ -45,15 +45,13 @@ class RewardInfoDialog(var reward: Reward) : DialogFragment() {
 
         val colors =
             arrayOf(
-                R.drawable.reward_1,
-                R.drawable.reward_2,
-                R.drawable.reward_3,
-                R.drawable.reward_4
+                R.drawable.reward_large_1, R.drawable.reward_large_2, R.drawable.reward_large_3
+            , R.drawable.reward_large_4
             )
         binding.rewardImageView.setImageDrawable(
             ContextCompat.getDrawable(
                 requireContext(),
-                if (reward.amount != 0) colors.random() else R.drawable.reward_empty
+                if (reward.amount != 0) colors.random() else R.drawable.reward_large_empty
             )
         )
     }
@@ -68,8 +66,6 @@ class RewardInfoDialog(var reward: Reward) : DialogFragment() {
         var current = v
         val dm = DisplayMetrics()
         requireActivity().windowManager.defaultDisplay.getMetrics(dm)
-        val width = dm.widthPixels
-        val heigth = dm.heightPixels
         // Travel up the tree until fail, modifying the LayoutParams
         do { // Get the parent
             val parent = current!!.parent
@@ -110,5 +106,7 @@ class RewardInfoDialog(var reward: Reward) : DialogFragment() {
     fun doNothing() {
 
     }
+
+
 
 }
