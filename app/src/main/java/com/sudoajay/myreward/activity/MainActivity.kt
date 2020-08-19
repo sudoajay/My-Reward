@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.activity_scrolling.*
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityScrollingBinding
-    private lateinit var viewModel: ViewModel
+    lateinit var viewModel: ViewModel
     private var TAG = "MainActivity"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -127,7 +127,7 @@ class MainActivity : AppCompatActivity() {
 
     fun callRewardInfo(reward: Reward) {
         val ft = supportFragmentManager.beginTransaction()
-        val systemInfoDialog = RewardInfoDialog(reward = reward)
+        val systemInfoDialog = RewardInfoDialog(reward, this)
         systemInfoDialog.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar_Fullscreen)
         systemInfoDialog.show(ft, "dialog")
     }

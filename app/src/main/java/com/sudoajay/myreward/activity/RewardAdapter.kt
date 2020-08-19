@@ -25,8 +25,8 @@ class RewardAdapter(private var mainActivity: MainActivity) :
         var moneyTextView = layoutRewardAdapterBinding.moneyTextView
         var youWonTextView = layoutRewardAdapterBinding.youWonTextView
         var rewardCardView = layoutRewardAdapterBinding.rewardCardView
-//        var newScratchImageView = layoutRewardAdapterBinding.newScratchImageView
-//        var insideConstraintLayout = layoutRewardAdapterBinding.insideConstraintLayout
+        var rewardScratch = layoutRewardAdapterBinding.rewardScratchImageView
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -46,45 +46,43 @@ class RewardAdapter(private var mainActivity: MainActivity) :
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val reward = items[position]
-        Log.e("RewardAdapater", reward.amount.toString() + " --- " + position)
+        if (reward.isScratch) {
+            holder.rewardScratch.visibility = View.VISIBLE
+        } else {
+            holder.rewardScratch.visibility = View.GONE
+
+            val colors =
+                arrayOf(
+                    R.drawable.reward_1,
+                    R.drawable.reward_2,
+                    R.drawable.reward_3,
+                    R.drawable.reward_4
+                )
+            holder.rewardImageView.setImageDrawable(
+                ContextCompat.getDrawable(
+                    mainActivity,
+                    if (reward.amount != 0) colors.random() else R.drawable.reward_empty
+                )
+            )
+            holder.youWonTextView.text =
+                if (reward.amount != 0) mainActivity.getString(R.string.you_won_text) else mainActivity.getString(
+                    R.string.better_luck_next_time_text
+                )
+
+            holder.moneyTextView.text =
+                if (reward.amount != 0) mainActivity.getString(
+                    R.string.money_text,
+                    mainActivity.getString(R.string.rupee_text),
+                    reward.amount.toString()
+                ) else ""
 
 
-//        if(reward.isScratch){
-//            holder.newScratchImageView.visibility= View.VISIBLE
-//            holder.insideConstraintLayout.visibility = View.INVISIBLE
-//
-//        }else{
-//            holder.newScratchImageView.visibility= View.INVISIBLE
-//            holder.insideConstraintLayout.visibility = View.VISIBLE
-//        }
+        }
 
         holder.rewardCardView.setOnClickListener {
             mainActivity.callRewardInfo(reward)
         }
-        val colors =
-            arrayOf(
-                R.drawable.reward_1,
-                R.drawable.reward_2,
-                R.drawable.reward_3,
-                R.drawable.reward_4
-            )
-        holder.rewardImageView.setImageDrawable(
-            ContextCompat.getDrawable(mainActivity,   if (reward.amount != 0)colors.random() else R.drawable.reward_empty
-            )
-        )
-        holder.youWonTextView.text = if (reward.amount != 0) mainActivity.getString(R.string.you_won_text) else mainActivity.getString(
-            R.string.better_luck_next_time_text)
-
-        holder.moneyTextView.text =
-            if (reward.amount != 0) mainActivity.getString(
-                R.string.money_text,
-                mainActivity.getString(R.string.rupee_text),
-                reward.amount.toString()
-            ) else ""
-
-
     }
-
 
 }
 

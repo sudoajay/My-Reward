@@ -114,7 +114,7 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
                     "",
                     "",
                     true,
-                    getGreeting()
+                   ""
                 )
             )
 
@@ -171,6 +171,8 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
             _application.getString(R.string.awesome_text)
         ).random()
     }
+
+
 
     companion object {
         private const val ALLOWED_CHARACTERS = "0123456789qwertyuiopasdfghjklzxcvbnm"

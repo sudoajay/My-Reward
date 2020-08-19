@@ -18,27 +18,26 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="24dp"
-                android:paddingBottom="24dp">
+                android:layout_height="wrap_content">
+
 
                 <ImageView
                     android:id="@+id/reward_ImageView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginEnd="30dp"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="35dp"
+                    android:src="@drawable/reward_1"
                     cardView:layout_constraintEnd_toEndOf="parent"
                     cardView:layout_constraintHorizontal_bias="0.5"
                     cardView:layout_constraintStart_toStartOf="parent"
-                    cardView:layout_constraintTop_toTopOf="parent"
-                   android:src="@drawable/reward_1" />
+                    cardView:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/youWon_TextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:textColor="@color/toolbarTextColor"
                     android:textSize="16sp"
                     cardView:layout_constraintEnd_toEndOf="@+id/reward_ImageView"
@@ -50,14 +49,26 @@
                     android:id="@+id/money_TextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-
+                    android:layout_marginTop="7dp"
+                    android:layout_marginBottom="5dp"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
+                    cardView:layout_constraintBottom_toBottomOf="parent"
                     cardView:layout_constraintEnd_toEndOf="@+id/youWon_TextView"
                     cardView:layout_constraintStart_toStartOf="@+id/youWon_TextView"
                     cardView:layout_constraintTop_toBottomOf="@+id/youWon_TextView" />
 
+                <ImageView
+                    android:id="@+id/rewardScratch_ImageView"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:visibility="gone"
+                    cardView:layout_constraintBottom_toBottomOf="parent"
+                    cardView:layout_constraintEnd_toEndOf="parent"
+                    cardView:layout_constraintHorizontal_bias="0.5"
+                    cardView:layout_constraintStart_toStartOf="parent"
+                    cardView:layout_constraintTop_toTopOf="parent"
+                    android:src="@drawable/reward_new"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>

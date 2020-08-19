@@ -30,4 +30,17 @@ class RewardRepository(private val context: Context, private val rewardDao: Rewa
         return rewardDao.getCount()
     }
 
+
+
+    suspend fun updateInfo(
+        id: Long,
+        amount: String,
+        date: Long,
+        code: String,
+        earned: String,
+        greeting: String
+    ) {
+        rewardDao.updateInfo(id, amount, date, code, earned, greeting)
+    }
+
 }

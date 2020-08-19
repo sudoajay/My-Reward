@@ -9,14 +9,24 @@ import androidx.room.Query
 @Dao
 interface RewardDao {
 
-    @Query("Select * FROM RewardTable  Order By Date Desc ")
-     fun getRewardByRecentDate(): LiveData<List<Reward>>
+    @Query("select * from (SELECT * FROM RewardTable where Scratch = 0 ORDER BY Date Desc) X UNION ALL SELECT * FROM RewardTable where Scratch = 1 ORDER BY Scratch Desc ")
+    fun getRewardByRecentDate(): LiveData<List<Reward>>
 
-    @Query("Select * FROM RewardTable Order By amount Desc ")
-     fun getRewardByAmountDescOrder(): LiveData<List<Reward>>
+    @Query("select * from (SELECT * FROM RewardTable where Scratch = 0 ORDER BY Amount Desc) X UNION ALL SELECT * FROM RewardTable where Scratch = 1 ORDER BY Scratch Desc ")
+    fun getRewardByAmountDescOrder(): LiveData<List<Reward>>
 
-    @Query("Select * FROM RewardTable Order By amount Asc ")
-     fun getRewardByAmountAscOrder():LiveData<List<Reward>>
+    @Query("select * from (SELECT * FROM RewardTable where Scratch = 0 ORDER BY Amount Asc) X UNION ALL SELECT * FROM RewardTable where Scratch = 1 ORDER BY Scratch Desc ")
+    fun getRewardByAmountAscOrder(): LiveData<List<Reward>>
+
+    @Query("UPDATE  RewardTable set Amount =:amount and Date = :date and Code =:code and Earned = :earned and Scratch = 0 and Greeting=:greeting where id = :id ")
+    suspend fun updateInfo(
+        id: Long,
+        amount: String,
+        date: Long,
+        code: String,
+        earned: String,
+        greeting: String
+    )
 
 
 
@@ -26,7 +36,7 @@ interface RewardDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(reward: Reward)
 
-    @Query("Select id FROM RewardTable where amount = 0 ")
+    @Query("Select id FROM RewardTable where amount = 0 and Scratch = 0 ")
     suspend fun getIdOfAmountNone(): List<Long>
 
     @Query("DELETE FROM RewardTable where id = :id ")
