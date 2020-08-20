@@ -198,13 +198,12 @@ class RewardInfoDialog(var reward: Reward, var mainActivity: MainActivity) : Dia
     }
 
     fun shareReward() {
-        val link = "https://play.google.com/store/apps/details?id=com.sudoajay.tic_tac_toe&hl=en"
         val i = Intent(Intent.ACTION_SEND)
         i.type = "text/plain"
         i.putExtra(Intent.EXTRA_SUBJECT, "Link-Share")
         i.putExtra(
             Intent.EXTRA_TEXT,
-            getString(R.string.share_to_friend, getString(R.string.rupee_text) + reward.amount,link)
+            getString(R.string.share_to_friend, getString(R.string.rupee_text) + reward.amount)
         )
         startActivity(Intent.createChooser(i, "Share via"))
     }
