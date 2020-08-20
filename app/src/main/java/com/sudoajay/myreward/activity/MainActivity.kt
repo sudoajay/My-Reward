@@ -16,13 +16,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.sudoajay.myreward.R
 import com.sudoajay.myreward.activity.database.Reward
-import com.sudoajay.myreward.databinding.ActivityScrollingBinding
-import kotlinx.android.synthetic.main.activity_scrolling.*
+import com.sudoajay.myreward.databinding.ActivityMainActivityBinding
+import kotlinx.android.synthetic.main.activity_main_activity.*
 
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityScrollingBinding
+    private lateinit var binding: ActivityMainActivityBinding
     lateinit var viewModel: ViewModel
     private var TAG = "MainActivity"
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_scrolling)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main_activity)
 
         viewModel = ViewModelProvider(this).get(ViewModel::class.java)
         binding.viewmodel = viewModel

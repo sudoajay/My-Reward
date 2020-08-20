@@ -23,6 +23,7 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
 
     var rewardList: LiveData<List<Reward>>? = null
     val filterChanges: MutableLiveData<String> = MutableLiveData()
+    var totalAmount:MutableLiveData<String> = MutableLiveData()
     private var hideProgress: MutableLiveData<Boolean>? = null
 
     init {
@@ -66,6 +67,7 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
             if(rewardRepository.getCount() == 0 ){
                 addNewScratch()
             }
+            totalAmount.postValue(rewardRepository.getTotalSum())
         }
     }
 

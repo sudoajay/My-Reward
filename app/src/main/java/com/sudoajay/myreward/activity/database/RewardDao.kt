@@ -33,6 +33,9 @@ interface RewardDao {
     @Query("Select Count(*) FROM RewardTable ")
     suspend fun getCount(): Int
 
+    @Query("Select sum(Amount) FROM RewardTable")
+    suspend fun getTotalSum() :Long
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(reward: Reward)
 

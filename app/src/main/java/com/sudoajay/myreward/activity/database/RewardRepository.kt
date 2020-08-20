@@ -22,6 +22,10 @@ class RewardRepository(private val context: Context, private val rewardDao: Rewa
         }
     }
 
+    suspend fun getTotalSum():String{
+        return rewardDao.getTotalSum().toString()
+    }
+
     suspend fun insert(reward: Reward) {
         rewardDao.insert(reward)
     }
