@@ -26,6 +26,7 @@ class RewardAdapter(private var mainActivity: MainActivity) :
         var youWonTextView = layoutRewardAdapterBinding.youWonTextView
         var rewardCardView = layoutRewardAdapterBinding.rewardCardView
         var rewardScratch = layoutRewardAdapterBinding.rewardScratchImageView
+        var betterTextView = layoutRewardAdapterBinding.betterTextView
 
     }
 
@@ -34,6 +35,7 @@ class RewardAdapter(private var mainActivity: MainActivity) :
             LayoutInflater.from(parent.context),
             R.layout.layout_reward_adapter, parent, false
         )
+
         return MyViewHolder(binding)
 
 
@@ -64,18 +66,22 @@ class RewardAdapter(private var mainActivity: MainActivity) :
                     if (reward.amount != 0) colors.random() else R.drawable.reward_empty
                 )
             )
-            holder.youWonTextView.text =
-                if (reward.amount != 0) mainActivity.getString(R.string.you_won_text) else mainActivity.getString(
-                    R.string.better_luck_next_time_text
-                )
-
             holder.moneyTextView.text =
-                if (reward.amount != 0) mainActivity.getString(
+                mainActivity.getString(
                     R.string.money_text,
                     mainActivity.getString(R.string.rupee_text),
                     reward.amount.toString()
-                ) else ""
+                )
 
+            if (reward.amount != 0) {
+                holder.youWonTextView.visibility = View.VISIBLE
+                holder.moneyTextView.visibility = View.VISIBLE
+                holder.betterTextView.visibility = View.GONE
+            } else {
+                holder.youWonTextView.visibility = View.GONE
+                holder.moneyTextView.visibility = View.GONE
+                holder.betterTextView.visibility = View.VISIBLE
+            }
 
         }
 

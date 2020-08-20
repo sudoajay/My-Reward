@@ -12,7 +12,6 @@ import com.sudoajay.myreward.activity.database.RewardRoomDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.*
 
 class ViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -35,74 +34,13 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
             rewardRepository.listUpdate(it)
         }
 
-        addData()
+
         deleteFromDb()
         filterChanges()
         getHideProgress()
-        hideProgress!!.value =   false
+        hideProgress!!.value = false
     }
 
-    private fun addData() {
-        CoroutineScope(Dispatchers.IO).launch {
-
-            if (rewardRepository.getCount() == 0) {
-                rewardRepository.insert(
-                    Reward(
-                        null,
-                        150,
-                        1576517014000,
-                        getRandomString(),
-                        getEarnedFrom(), false, getGreeting()
-                    )
-                )
-                rewardRepository.insert(
-                    Reward(
-                        null,
-                        220,
-                        1576734051000,
-                        getRandomString(),
-                        getEarnedFrom(), false,getGreeting()
-                    )
-                )
-                rewardRepository.insert(
-                    Reward(
-                        null,
-                        225,
-                        1526341914000,
-                        getRandomString(),
-                        getEarnedFrom(), false, getGreeting()
-                    )
-                )
-                rewardRepository.insert(
-                    Reward(
-                        null,
-                        0,
-                        1554431984000,
-                        getRandomString(),
-                        getEarnedFrom(), false, getGreeting()
-                    )
-                )
-                rewardRepository.insert(
-                    Reward(
-                        null,
-                        500,
-                        1575480551000,
-                        getRandomString(),
-                        getEarnedFrom(), false,getGreeting()
-                    )
-                )
-                rewardRepository.insert(
-                    Reward(
-                        null,
-                        550,
-                        1554431984000,
-                        getRandomString(),
-                        getEarnedFrom(), false,getGreeting()
-                    )
-                )
-            }
-        }
-    }
 
     fun addNewScratch() {
         CoroutineScope(Dispatchers.IO).launch {
@@ -125,6 +63,9 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
     private fun deleteFromDb() {
         CoroutineScope(Dispatchers.IO).launch {
             rewardRepository.deleteAmountNoneFromDb()
+            if(rewardRepository.getCount() == 0 ){
+                addNewScratch()
+            }
         }
     }
 
@@ -147,35 +88,6 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
 
     private fun loadHideProgress() {
         hideProgress!!.value = true
-    }
-
-    private fun getRandomString(sizeOfRandomString: Int= 14 ): String {
-        val random = Random()
-        val sb = StringBuilder(sizeOfRandomString)
-        for (i in 0 until sizeOfRandomString)
-            sb.append(ALLOWED_CHARACTERS[random.nextInt(ALLOWED_CHARACTERS.length)])
-        return sb.toString()
-    }
-
-    private fun getEarnedFrom(): String {
-        val array = listOf("Amazon", "Google", "Flipkart", "Mom", "Dad", "Bro")
-        return array.random()
-    }
-
-    private fun getGreeting(): String {
-        return listOf(
-            _application.getString(R.string.hooray_text),
-            _application.getString(R.string.woohoo_text),
-            _application.getString(R.string.fantastic_text),
-            _application.getString(R.string.congratulations_text),
-            _application.getString(R.string.awesome_text)
-        ).random()
-    }
-
-
-
-    companion object {
-        private const val ALLOWED_CHARACTERS = "0123456789qwertyuiopasdfghjklzxcvbnm"
     }
 
 }

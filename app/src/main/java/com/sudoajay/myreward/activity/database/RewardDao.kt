@@ -18,7 +18,7 @@ interface RewardDao {
     @Query("select * from (SELECT * FROM RewardTable where Scratch = 0 ORDER BY Amount Asc) X UNION ALL SELECT * FROM RewardTable where Scratch = 1 ORDER BY Scratch Desc ")
     fun getRewardByAmountAscOrder(): LiveData<List<Reward>>
 
-    @Query("UPDATE  RewardTable set Amount =:amount and Date = :date and Code =:code and Earned = :earned and Scratch = 0 and Greeting=:greeting where id = :id ")
+    @Query("UPDATE  RewardTable set Amount =:amount , Date = :date , Code =:code , Earned = :earned , Scratch = 0 , Greeting=:greeting where id = :id ")
     suspend fun updateInfo(
         id: Long,
         amount: String,

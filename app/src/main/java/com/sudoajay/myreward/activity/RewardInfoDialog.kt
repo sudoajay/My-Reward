@@ -1,19 +1,20 @@
 package com.sudoajay.myreward.activity
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.MutableLiveData
 import com.cooltechworks.views.ScratchImageView
 import com.sudoajay.myreward.R
 import com.sudoajay.myreward.activity.database.Reward
@@ -27,8 +28,9 @@ import java.util.*
 
 class RewardInfoDialog(var reward: Reward, var mainActivity: MainActivity) : DialogFragment() {
     private lateinit var binding: LayoutRewardInfoDialogBinding
-
-    var date: String = ""
+    var youWonLiveData: MutableLiveData<String> = MutableLiveData()
+    var amountLiveData: MutableLiveData<String> = MutableLiveData()
+    var isBetterShow:MutableLiveData<Boolean> = MutableLiveData()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -51,82 +53,116 @@ class RewardInfoDialog(var reward: Reward, var mainActivity: MainActivity) : Dia
     private fun mainFunction() { // Reference Object
 
         // setup dialog box
-       dialog!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        val scratchImageView = binding.ScratchImageView
-        getDate()
+        dialog!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        val colors =
+        val imageList =
             arrayOf(
-                R.drawable.reward_large_1, R.drawable.reward_large_2, R.drawable.reward_large_3
-                , R.drawable.reward_large_4
+                R.drawable.reward_large_1,
+                R.drawable.reward_large_2,
+                R.drawable.reward_large_3,
+                R.drawable.reward_large_4
             )
+
         binding.rewardImageView.setImageDrawable(
             ContextCompat.getDrawable(
                 requireContext(),
-                if (reward.amount != 0) colors.random() else R.drawable.reward_large_empty
+                if (reward.amount != 0) imageList.random() else R.drawable.reward_large_empty
             )
         )
 
+        if (reward.isScratch) {
+            val greeting = getGreeting(requireContext())
+            val amount = generateAmount()
+            val getTodayDate = getTodayDate()
+            val scratchImageView = binding.ScratchImageView
+            scratchImageView.visibility=View.VISIBLE
+            if (amount != "0") {
+                youWonLiveData.value = getString(R.string.you_won_text)
+                amountLiveData.value =
+                    getString(R.string.money_text, getString(R.string.rupee_text), amount)
+            } else {
+                youWonLiveData.value = ""
+                amountLiveData.value = ""
+                isBetterShow.value = true
+            }
 
-//
-//        if (reward.isScratch) {
-//            scratchImageView.visibility = View.VISIBLE
-//            binding.bottomButton.visibility = View.GONE
-//
-//            scratchImageView.setRevealListener(object : ScratchImageView.IRevealListener {
-//                override fun onRevealed(scr: ScratchImageView) {
-//                    // on reveal
-//                }
-//
-//                override fun onRevealPercentChangedListener(
-//                    scr: ScratchImageView,
-//                    percent: Float
-//                ) {
-//
-//                    if (percent >= 0.50f) {
-//                        scr.visibility = View.GONE
-//                        CoroutineScope(Dispatchers.IO).launch {
-//                            val amount = generateAmount(requireContext())
-//                            reward =
-//                                if (amount == requireContext().getString(R.string.better_luck_next_time_text)) {
-//                                    Reward(
-//                                        reward.id,
-//                                        0,
-//                                        0,
-//                                        "",
-//                                        "",
-//                                        false,
-//                                        ""
-//                                    )
-//                                } else {
-//                                    Reward(
-//                                        reward.id,
-//                                        amount.toInt(), getTodayDate(), getRandomCode(),
-//                                        getEarned(),
-//                                        false,
-//                                        getGreeting(requireContext())
-//
-//                                    )
-//                                }
-//                            mainActivity.viewModel.rewardRepository.updateInfo(
-//                                reward.id!!, reward.amount.toString(), reward.date, reward.code,
-//                                reward.earned, reward.greeting)
-//                            mainActivity.viewModel.filterChanges.postValue(
-//                                requireContext().getString(
-//                                    R.string.date_sort_by
-//                                )
-//                            )
-//                        }
-//
-//                    }
-//                }
-//            })
-//
-//        } else {
-//            scratchImageView.visibility = View.GONE
-//            binding.bottomButton.visibility = View.VISIBLE
-//        }
 
+            scratchImageView.setRevealListener(object : ScratchImageView.IRevealListener {
+                override fun onRevealed(tv: ScratchImageView) {
+                    // on reveal
+                    Log.e("InfoDialog", "Here We Reveal")
+
+                }
+
+                override fun onRevealPercentChangedListener(siv: ScratchImageView, percent: Float) {
+                    // on image percent reveal
+                    if (percent >= 0.50f) {
+                        scratchImageView.visibility=View.GONE
+                        if (reward.isScratch) {
+                            CoroutineScope(Dispatchers.IO).launch {
+                                reward =
+                                    if (amount == "0") {
+                                        Reward(
+                                            reward.id,
+                                            0,
+                                            getTodayDate,
+                                            "",
+                                            "",
+                                            false,
+                                            ""
+                                        )
+                                    } else {
+                                        Reward(
+                                            reward.id,
+                                            amount.toInt(), getTodayDate, getRandomCode(),
+                                            getEarned(),
+                                            false,
+                                            greeting
+
+                                        )
+                                    }
+
+                                Log.e("InfoDialog", reward.id.toString())
+                                mainActivity.viewModel.rewardRepository.updateInfo(
+                                    reward.id!!, reward.amount.toString(), reward.date, reward.code,
+                                    reward.earned, reward.greeting
+                                )
+                                Log.e("InfoDialog", "Data Base Updated")
+
+                                mainActivity.viewModel.filterChanges.postValue(
+                                    requireContext().getString(
+                                        R.string.date_sort_by
+                                    )
+                                )
+                                Log.e("InfoDialog", "filterChanges Updated")
+
+                            }
+                        }
+                    }
+                }
+            })
+
+            binding.rewardImageView.setImageDrawable(
+                ContextCompat.getDrawable(
+                    requireContext(),
+                    if (amount.toInt() != 0) imageList.random() else R.drawable.reward_large_empty
+                )
+            )
+        } else {
+            if (reward.amount == 0) {
+                youWonLiveData.value = ""
+                amountLiveData.value = ""
+                isBetterShow.value = true
+            } else {
+                youWonLiveData.value = getString(R.string.you_won_text)
+                amountLiveData.value =
+                    getString(
+                        R.string.money_text,
+                        getString(R.string.rupee_text),
+                        reward.amount.toString()
+                    )
+            }
+        }
 
     }
 
@@ -157,6 +193,10 @@ class RewardInfoDialog(var reward: Reward, var mainActivity: MainActivity) : Dia
         current!!.requestLayout()
     }
 
+    fun isEmpty(value: String): Boolean {
+        return value.isEmpty()
+    }
+
     fun shareReward() {
         val i = Intent(Intent.ACTION_SEND)
         i.type = "text/plain"
@@ -169,22 +209,25 @@ class RewardInfoDialog(var reward: Reward, var mainActivity: MainActivity) : Dia
     }
 
     fun getMoreReward() {
-
+        mainActivity.viewModel.addNewScratch()
+        dismiss()
     }
 
-    private fun getDate() {
+    fun getDate(): String {
         val sdf = SimpleDateFormat(" MMM d", Locale.getDefault())
-        date = getString(R.string.paid_on_text, sdf.format(reward.date))
+        return getString(R.string.paid_on_text, sdf.format(reward.date))
     }
 
     fun doNothing() {
 
     }
 
+
+
     companion object {
         private const val ALLOWED_CHARACTERS = "0123456789qwertyuiopasdfghjklzxcvbnm"
-        private fun generateAmount(context: Context): String {
-            return listOf(rand().toString()).random()
+        private fun generateAmount(): String {
+            return listOf("0", "0","0" ,  rand().toString()).random()
         }
 
         private fun rand(): Int {

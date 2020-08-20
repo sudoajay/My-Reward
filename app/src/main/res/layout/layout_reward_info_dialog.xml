@@ -5,13 +5,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
 
         <variable
             name="dialog"
             type="com.sudoajay.myreward.activity.RewardInfoDialog" />
-        <variable
-            name="viewModel"
-            type="com.sudoajay.myreward.activity.DialogViewModel" />
 
     </data>
 
@@ -67,17 +65,17 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="30dp"
                         android:layout_marginEnd="30dp"
-                        android:src="@drawable/reward_large_1"
                         cardView:layout_constraintEnd_toEndOf="parent"
                         cardView:layout_constraintHorizontal_bias="0.5"
                         cardView:layout_constraintStart_toStartOf="parent"
                         cardView:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/greeting_TextView"
+                        android:id="@+id/youWon_TextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.greeting}"
+                        android:text="@{dialog.youWonLiveData}"
+                        android:visibility="@{dialog.isEmpty(dialog.youWonLiveData)? View.GONE :View.VISIBLE}"
                         android:textColor="@color/toolbarTextColor"
                         android:textSize="15sp"
                         cardView:layout_constraintEnd_toEndOf="@+id/reward_ImageView"
@@ -86,18 +84,35 @@
                         cardView:layout_constraintTop_toBottomOf="@+id/reward_ImageView" />
 
                     <TextView
+                        android:id="@+id/better_TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:fontFamily="@font/lato"
+                        android:text="@string/better_luck_next_time_text"
+                        android:textColor="@color/toolbarTextColor"
+                        android:textSize="18sp"
+                        android:visibility="@{dialog.isBetterShow()?View.VISIBLE:View.GONE}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/reward_ImageView"
+                        app:layout_constraintHorizontal_bias="0.56"
+                        app:layout_constraintStart_toStartOf="@+id/reward_ImageView"
+                        app:layout_constraintTop_toTopOf="@+id/youWon_TextView" />
+
+                    <TextView
                         android:id="@+id/money_TextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
-                        android:text="@{dialog.reward.amount != 0   ?@string/money_text(@string/rupee_text, dialog.reward.amount):@string/better_luck_next_time_text}"
+                        android:text="@{dialog.amountLiveData}"
+                        android:visibility="@{dialog.isEmpty(dialog.amountLiveData)? View.GONE :View.VISIBLE}"
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
                         cardView:layout_constraintBottom_toBottomOf="parent"
-                        cardView:layout_constraintEnd_toEndOf="@+id/greeting_TextView"
-                        cardView:layout_constraintStart_toStartOf="@+id/greeting_TextView"
-                        cardView:layout_constraintTop_toBottomOf="@+id/greeting_TextView" />
+                        cardView:layout_constraintEnd_toEndOf="@+id/youWon_TextView"
+                        cardView:layout_constraintStart_toStartOf="@+id/youWon_TextView"
+                        cardView:layout_constraintTop_toBottomOf="@+id/youWon_TextView" />
 
                     <com.cooltechworks.views.ScratchImageView
                         android:id="@+id/Scratch_ImageView"
@@ -135,7 +150,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:onClick="@{() -> dialog.doNothing()}"
-            android:text="@{dialog.reward.amount != 0  ?dialog.date:@string/empty_text }"
+            android:text="@{dialog.reward.amount != 0  ?dialog.getDate():@string/empty_text }"
             android:textColor="@android:color/white"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@+id/congrats_TextView"
@@ -175,6 +190,7 @@
             android:layout_marginBottom="16dp"
             android:background="@drawable/tell_your_friend"
             android:fontFamily="@font/lato"
+            android:visibility="@{dialog.reward.scratch? View.INVISIBLE : View.VISIBLE}"
             android:onClick="@{() -> dialog.reward.amount != 0 ? dialog.shareReward() : dialog.getMoreReward()}"
             android:paddingLeft="40dp"
             android:paddingRight="40dp"
