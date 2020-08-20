@@ -7,7 +7,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -90,7 +89,7 @@ class RewardInfoDialog(var reward: Reward, var mainActivity: MainActivity) : Dia
             scratchImageView.setRevealListener(object : ScratchImageView.IRevealListener {
                 override fun onRevealed(tv: ScratchImageView) {
                     // on reveal
-                    Log.e("InfoDialog", "Here We Reveal")
+
 
                 }
 
@@ -121,19 +120,19 @@ class RewardInfoDialog(var reward: Reward, var mainActivity: MainActivity) : Dia
                                         )
                                     }
 
-                                Log.e("InfoDialog", reward.id.toString())
+
                                 mainActivity.viewModel.rewardRepository.updateInfo(
                                     reward.id!!, reward.amount.toString(), reward.date, reward.code,
                                     reward.earned, reward.greeting
                                 )
-                                Log.e("InfoDialog", "Data Base Updated")
+
 
                                 mainActivity.viewModel.filterChanges.postValue(
                                     requireContext().getString(
                                         R.string.date_sort_by
                                     )
                                 )
-                                Log.e("InfoDialog", "filterChanges Updated")
+
 
                             }
                         }
@@ -199,12 +198,13 @@ class RewardInfoDialog(var reward: Reward, var mainActivity: MainActivity) : Dia
     }
 
     fun shareReward() {
+        val link = "https://play.google.com/store/apps/details?id=com.sudoajay.tic_tac_toe&hl=en"
         val i = Intent(Intent.ACTION_SEND)
         i.type = "text/plain"
         i.putExtra(Intent.EXTRA_SUBJECT, "Link-Share")
         i.putExtra(
             Intent.EXTRA_TEXT,
-            getString(R.string.share_to_friend, getString(R.string.rupee_text) + reward.amount)
+            getString(R.string.share_to_friend, getString(R.string.rupee_text) + reward.amount,link)
         )
         startActivity(Intent.createChooser(i, "Share via"))
     }

@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -24,7 +23,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainActivityBinding
     lateinit var viewModel: ViewModel
-    private var TAG = "MainActivity"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -66,9 +64,6 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.rewardList!!.observe(this, Observer {
 
-            for (x in it) {
-                Log.e(TAG, x.amount.toString())
-            }
             rewardAdapter.items = it
             rewardAdapter.notifyDataSetChanged()
 //

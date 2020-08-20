@@ -1,6 +1,5 @@
 package com.sudoajay.myreward.activity
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,7 +41,6 @@ class RewardAdapter(private var mainActivity: MainActivity) :
     }
 
     override fun getItemCount(): Int {
-        Log.e("RewardAdapater", items.size.toString())
         return items.size
     }
 

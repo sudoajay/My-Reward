@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyReward</string>
+    <string name="app_name">My Reward</string>
 
     <!--    Menu Setting-->
     <string name="action_new_reward">New Reward</string>
@@ -20,7 +20,7 @@
 
 
 <!--    Reward dialog -->
-    <string name="share_to_friend">I won %1$s with Google Pay! It\'s a simple and secure payments app by Google.</string>
+    <string name="share_to_friend">I won %1$s with My Reward App! Here link - %2$s .  Just for fun App  .</string>
     <string name="hooray_text">Hooray!</string>
     <string name="woohoo_text">Woohoo!</string>
     <string name="congratulations_text">Congratulations!</string>
@@ -31,7 +31,7 @@
     <string name="tell_your_friends_text">Tell your friends</string>
     <string name="get_more_reward_text">Get more reward</string>
     <string name="paid_on_text">Paid on %1$s</string>
-    <string name="generate_code_text">"Google Ref #: %1$s"</string>
+    <string name="generate_code_text">"App Ref #: %1$s"</string>
     <string name="earned_for_paying_text">"Earned for paying %1$s"</string>
 
 </resources>
