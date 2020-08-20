@@ -96,8 +96,7 @@ class RewardInfoDialog(var reward: Reward, var mainActivity: MainActivity) : Dia
 
                 override fun onRevealPercentChangedListener(siv: ScratchImageView, percent: Float) {
                     // on image percent reveal
-                    if (percent >= 0.50f) {
-                        scratchImageView.visibility=View.GONE
+                    if (percent >= 0.01f)
                         if (reward.isScratch) {
                             CoroutineScope(Dispatchers.IO).launch {
                                 reward =
@@ -138,7 +137,9 @@ class RewardInfoDialog(var reward: Reward, var mainActivity: MainActivity) : Dia
 
                             }
                         }
-                    }
+                    if (percent >= 0.50f)
+                        scratchImageView.visibility = View.GONE
+
                 }
             })
 
@@ -223,15 +224,22 @@ class RewardInfoDialog(var reward: Reward, var mainActivity: MainActivity) : Dia
     }
 
 
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        mainActivity.viewModel.getTotalSum()
+    }
 
     companion object {
         private const val ALLOWED_CHARACTERS = "0123456789qwertyuiopasdfghjklzxcvbnm"
         private fun generateAmount(): String {
-            return listOf("0", "0","0" ,  rand().toString()).random()
+            return listOf("0", "0", "0", randNo().toString(), randNo().toString()).random()
         }
 
-        private fun rand(): Int {
-            return 5 * (((Random().nextInt(5000 - 5) + 5) / 5) + 1)
+        private fun randNo(): Int {
+            return listOf(rand(5,100),rand(5,100),rand(5,100),rand(5,100),rand(5,100),rand(100,1000),rand(100,1000),rand(1000,5000)).random()
+        }
+        private fun rand(from:Int, to:Int): Int {
+            return 5 * (((Random().nextInt(to - from) + from) / 5) + 1)
         }
 
         private fun getRandomCode(sizeOfRandomString: Int = 14): String {

@@ -67,12 +67,18 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
             if(rewardRepository.getCount() == 0 ){
                 addNewScratch()
             }
+        }
+        getTotalSum()
+    }
+
+    fun getTotalSum(){
+        CoroutineScope(Dispatchers.IO).launch {
             totalAmount.postValue(rewardRepository.getTotalSum())
         }
     }
-
     fun onRefresh() {
         deleteFromDb()
+
         filterChanges()
     }
 
